@@ -2,8 +2,6 @@ package com.vickmwas;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.util.Arrays;
 
 /**
  * UDP UDPServer implementation
@@ -16,12 +14,12 @@ public class UDPServer {
         DatagramSocket serverSocket = new DatagramSocket(9876);
         byte[] receiveData = new byte[1024];
         byte[] sendData;
-        while(true)
-        {
+        System.out.println("Starting server...");
+        while (true) {
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
             serverSocket.receive(receivePacket);
 
-            String stringFromClient = new String( receivePacket.getData());
+            String stringFromClient = new String(receivePacket.getData());
             System.out.println("RECEIVED: " + stringFromClient);
 
 
@@ -34,14 +32,15 @@ public class UDPServer {
             System.out.println("\nCalculated Determinant = " + determinantString);
 
 
-
-            InetAddress IPAddress = receivePacket.getAddress();
-            int port = receivePacket.getPort();
-
             sendData = determinantString.getBytes();
 
+            //send determinant back to client
             DatagramPacket sendPacket =
-                    new DatagramPacket(sendData, sendData.length, IPAddress, port);
+                    new DatagramPacket(
+                            sendData,
+                            sendData.length,
+                            receivePacket.getAddress(),
+                            receivePacket.getPort());
 
             serverSocket.send(sendPacket);
         }
@@ -99,9 +98,9 @@ public class UDPServer {
 
 
     private static void printMatrix(int MATRIX[][]){
-        for (int i = 0; i < MATRIX.length; i++){
-            for (int j = 0; j < MATRIX.length; j++){
-                System.out.print(MATRIX[i][j] + "  ");
+        for (int[] row : MATRIX) {
+            for (int j = 0; j < MATRIX.length; j++) {
+                System.out.print(row[j] + "  ");
             }
             System.out.println("");
         }

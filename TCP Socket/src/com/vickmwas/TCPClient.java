@@ -26,7 +26,6 @@ public class TCPClient {
 
 
             String matrixString = matrixToString();
-//            System.out.println("\n Matrix String = :" + matrixString);
 
             PrintStream p = new PrintStream(socket.getOutputStream());
             p.println(matrixString);

@@ -33,11 +33,11 @@ public class TCPServer {
 
 
             response = determinant(stringToMatrix(matrixString));
-
+            System.out.println("Calculated determinant = " + response);
+            System.out.println("\n==== Sending back " + response + " to server ...");
 
             PrintStream p = new PrintStream(clientSocket.getOutputStream());
             p.println(response);
-
 
         } catch (IOException e) {
             e.printStackTrace();

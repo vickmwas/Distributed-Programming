@@ -1,8 +1,6 @@
 package com.vickmwas;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -23,17 +21,13 @@ public class UDPClient {
             DatagramSocket clientSocket = new DatagramSocket();
             InetAddress IPAddress = InetAddress.getByName("localhost");
 
-            System.out.println("Kindly enter the string to send");
-
-//            Scanner inputScanner = new Scanner(System.in);
-//            String sentence = inputScanner.nextLine();
-
             String sentence = matrixToString();
 
             sendData = sentence.getBytes();
 
             //datagram packet
-            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876);
+            DatagramPacket sendPacket = new DatagramPacket(
+                    sendData, sendData.length, IPAddress, 9876);
 
             clientSocket.send(sendPacket);
 
